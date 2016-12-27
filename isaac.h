@@ -24,6 +24,16 @@
 namespace utils
 {
 
+/************************************************************
+_isaac contains code common to isaac and isaac64.
+It uses CRTP (a.k.a. 'static polymorphism') to invoke
+specialized methods in the derived class templates,
+avoiding the cost of virtual method invocations and
+allowing those methods to be placed inline by the compiler.
+Applications should not specialize or instantiate this 
+template directly.
+*************************************************************/
+
 template<class Derived, std::size_t Alpha, class T>
 class _isaac
 {
@@ -93,7 +103,7 @@ public:
 		init();
 	}
 	
-    template<class Sseq>
+	template<class Sseq>
 	inline typename std::enable_if <std::__is_seed_sequence<Sseq, Derived>::value, void>::type
 	seed(Sseq& q)
 	{
