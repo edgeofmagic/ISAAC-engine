@@ -12,7 +12,7 @@ requirements for random number engines found in paragraph 26.5.1.4. The practica
 effort is that it provides an implementation of ISAAC that can be used in conjunction with
 other components of the facility, such as engine adaptors and distributions.
 
-##Using the engine
+## Using the engine
 
 The implementation consists of a set of templates contained in a single header file, isaac.h.
 The templates are defined in the namespace utils. A trivial use case might look something like this:
@@ -53,7 +53,7 @@ Larger values for alpha result in higher quality output (in terms of measures of
 Smaller values result in faster execution. The algorithm's author suggests using a value
 of 8 for cryptographic applications, and 4 for non-cryptographic applications.
 
-###Seeding the engine
+### Seeding the engine
 
 The language standard requires certain methods for seeding an engine. Seeding can
 occur at the time of construction, or by invoking the method seed() in one of its 
@@ -83,7 +83,7 @@ from any source that supports forward iterators, to wit:
 If the number of elements available between the beginning and ending iterators is less than the the
 state size, the sequence is repeated util the entire state is initialized.
 
-###Other required methods
+### Other required methods
 
 Additional methods required by the standard include equality and inequality comparison operators.
 Equality is determined by internal state. If two instances of an engine are are constructed with identical
@@ -137,7 +137,7 @@ The discard() method skips a specified number of values in the sequence generate
 	assert(engine1 == engine2);
 ````
 
-###Performance
+### Performance
 
 No performance tuning has been done on this implementation, although it follows the general structure of
 the reference implementation closely. In its current state, it is slightly faster (about 10% to 20%) than the 
