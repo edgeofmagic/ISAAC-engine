@@ -54,7 +54,7 @@ of 8 for cryptographic applications, and 4 for non-cryptographic applications.
 
 ###Seeding the engine
 
-The language standard requires certain methods for seeding engines. Seeding can
+The language standard requires certain methods for seeding an engine. Seeding can
 occur at the time of construction, or by invoking the method seed() in one of its 
 overloaded forms. The following constuctor and seed signatures are supported as per
 the standard:
