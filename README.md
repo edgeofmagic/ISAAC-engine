@@ -133,7 +133,7 @@ The discard() method skips a specified number of values in the sequence generate
 ###Performance
 
 No performance tuning has been done on this implementation, although it follows the general structure of
-the reference implementation closely. In it's current state, it is slightly faster (about 10% to 20%) than the 
+the reference implementation closely. In its current state, it is slightly faster (about 10% to 20%) than the 
 standard implementation of the Mersenne Twister engine of the same result_type (mt19937/isaac and mt19937_64/isaac64).
 Bob Jenkins discusses the quality of the output at some length on his web site (see links at the top). The following
 are output sets from the **ent** pseudorandom number sequence test program for mt19937_64 and isaac64, respectively:
