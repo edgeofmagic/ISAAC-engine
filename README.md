@@ -7,7 +7,8 @@ in C can be found [here](http://burtleburtle.net/bob/rand/isaacafa.html).
 
 This project is a C++ implementation, based on the reference implementation, that takes
 the form of a *random number engine* consistent with the random number generation
-facility described in section 26.5.1.4 of the language standard. The practical value of this
+facility described in section 26.5 of the language standard. Specifically, it meets the
+requirements for random number engines found in paragraph 26.5.1.4. The practical value of this
 effort is that it provides an implementation of ISAAC that can be used in conjunction with
 other components of the facility, such as engine adaptors and distributions.
 
