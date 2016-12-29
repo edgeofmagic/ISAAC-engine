@@ -61,6 +61,7 @@ The language standard requires certain methods for seeding an engine. Seeding ca
 occur at the time of construction, or by invoking the method seed() in one of its 
 overloaded forms. The following constuctor and seed signatures are supported as per
 the standard:
+
 ````
 	isaac<> engine1(); 	// null constructor uses a default seed (0)
 	engine1.seed();		// state after seed is the same as state after null constructor
