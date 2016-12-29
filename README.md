@@ -17,7 +17,7 @@ other components of the facility, such as engine adaptors and distributions.
 
 The implementation consists of a set of templates contained in a single header file, isaac.h.
 The templates are defined in the namespace utils. A trivial use case might look something like this:
-````C++
+```` C++
 #include <isaac.h>
 #include <random>
 
