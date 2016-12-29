@@ -1,5 +1,5 @@
 # ISAAC-engine
-###A C++ random number engine based on the ISAAC pseudorandom number generator
+### A C++ random number engine based on the ISAAC pseudorandom number generator
 
 ISAAC is a pseudorandom number generator created by Bob Jenkins. An in-depth discussion can
 be found [here](http://burtleburtle.net/bob/rand/isaac.html), and the reference implementation
