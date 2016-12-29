@@ -78,7 +78,7 @@ Unfortunately, all of these seeding mechanisms have shortcomings with respect to
 some of which are discussed [here](http://www.pcg-random.org/posts/cpp-seeding-surprises.html).
 As an alternative, this implementation provides a method for seeding the the complete internal state
 from any source that supports forward iterators, to wit:
-````C++
+````
 	std::vector<seed_type> seed_vec = { ... }; // fill from source of your choice
 	isaac<> engine(seed_vec.begin(), seed_vec.end());
 	// or
