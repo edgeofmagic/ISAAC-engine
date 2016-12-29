@@ -92,14 +92,14 @@ state size, the sequence is repeated util the entire state is initialized.
 Additional methods required by the standard include equality and inequality comparison operators.
 Equality is determined by internal state. If two instances of an engine are are constructed with identical
 parameter values, or seeded with identical values, they have the same internal state:
-````C++
+````
 	isaac<> engine1(1234);
 	isaac<> engine2(1234);
 	assert(engine1 == engine2);
 ````
 Following an invocation of seed(), an engine will have the same state as one just contructed with
 the same parameters as those used for seed():
-````C++
+````
 	isaac<> engine1(4321);
 	isaac<> engine2;
 	engine2.seed(4321);
@@ -107,12 +107,12 @@ the same parameters as those used for seed():
 ````
 The invocation operator()(), discard(), and seed() methods all modify the internal state. For example, 
 continuing the previous code snippet:
-````C++
+````
 	auto rnum = engine1();
 	assert(engine1 != engine2);
 ````
 State can be saved to a stream and restored:
-````C++
+```` C++
 	std::ostringstream os;
 	isaac<> engine1(5678);
 	os << engine1;
