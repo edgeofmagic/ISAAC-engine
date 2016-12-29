@@ -49,7 +49,7 @@ The templates take an optional parameter, Alpha, that determines the number of w
 The state size is 2<sup>Alpha</sup>. For example:
 
 ```` cpp
-isaac<8> engine; 		// state size is 2^8 = 256 words
+isaac<8> engine; 	// state size is 2^8 = 256 words
 isaac64<4> engine64; 	// state size is 2^4 = 16 words
 ````
 Larger values for alpha result in higher quality output (in terms of measures of randomness).
@@ -67,11 +67,11 @@ the standard:
 isaac<> engine1(); 	// null constructor uses a default seed (0)
 engine1.seed();		// state after seed is the same as state after null constructor
 
-isaac<> engine2(1234); // seed with a single value of result_type
+isaac<> engine2(1234);	// seed with a single value of result_type
 engine2(1234);
 
 std::seed_seq seq;
-isaac<> engine3(seq); // seed with a seed sequence object
+isaac<> engine3(seq);	// seed with a seed sequence object
 engine3.seed(seq);
 ````
 Unfortunately, all of these seeding mechanisms have shortcomings with respect to predictability,
