@@ -47,7 +47,6 @@ is an unsigned 64-bit integer.
 The templates take an optional parameter, Alpha, that determines the number of words
 (of result_type) used for internal state, and the number of words used to seed the engine.
 The state size is 2<sup>Alpha</sup>. For example:
-
 ````
 	isaac<8> engine; 		// state size is 2^8 = 256 words
 	isaac64<4> engine64; 	// state size is 2^4 = 16 words
