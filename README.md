@@ -88,6 +88,25 @@ engine.seed(seed_vec.begin(), seed_vec.end());
 If the number of elements available between the beginning and ending iterators is less than the the
 state size, the sequence is repeated util the entire state is initialized.
 
+#### [Edit: 3/10/2019]
+
+A stronger seeding mechanism has been added that uses system entropy sources (such as /dev/urandom)
+if available:
+
+```` cpp
+std::random_device rdev;
+isaac<> gen(rdev);
+
+// or, alternatively:
+
+std::random_device rdev;
+isaac<> gen;
+gen.seed(rdev);
+````
+
+See your library's documentation for std::random_device for details. This constructor and overload of seed()
+will initialize the internal state of the generator from the argument.
+
 ### Other required methods
 
 Additional methods required by the standard include equality and inequality comparison operators.

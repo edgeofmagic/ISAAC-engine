@@ -69,6 +69,11 @@ protected:
 		seed(begin, end);
 	}
 	
+	_isaac(std::random_device& dev)
+	{
+		seed(dev);
+	}
+
 	_isaac(const _isaac& rhs)
 	{
 		for (std::size_t i = 0; i < state_size; ++i)
@@ -135,6 +140,27 @@ public:
 		init();
 	}
 	
+	void
+	seed(std::random_device& dev)
+	{
+        std::vector<result_type> seed_vec;
+        seed_vec.reserve(state_size);
+        for (auto i = 0; i < state_size; ++i)
+        {
+			result_type value;
+			value = dev();
+            std::size_t bytes_filled{sizeof(std::random_device::result_type)};
+			while(bytes_filled < sizeof(result_type))
+			{
+				value <<= (sizeof(std::random_device::result_type) * 8);
+				value |= dev();
+				bytes_filled += sizeof(std::random_device::result_type);
+			}
+            seed_vec.push_back(value);
+        }
+        seed(seed_vec.begin(), seed_vec.end());		
+	}
+
 	inline result_type
 	operator()()
 	{
@@ -417,6 +443,11 @@ public:
 	base::_isaac(begin, end)
 	{}
 
+	isaac(std::random_device& dev)
+	:
+	base::_isaac(dev)
+	{}
+
 	isaac(const isaac& rhs)
 	:
 	base::_isaac(static_cast<const base&>(rhs))
@@ -527,6 +558,11 @@ public:
 	:
 	base::_isaac(begin, end)
 	{}
+
+    isaac64(std::random_device& dev)
+    :
+    base::_isaac(dev)
+    {}
 
 	isaac64(const isaac64& rhs)
 	:

@@ -18,12 +18,32 @@ std::uint64_t time_rand(Gen gen, std::size_t num_bytes, std::uint64_t& val)
 	return elapsed_ms.count();
 }
 
+template<class Generator>
+inline void
+random_fill(Generator& gen, unsigned char* buf, std::size_t count)
+{
+	static constexpr std::size_t word_size = sizeof(typename Generator::result_type);
+	unsigned char* p = buf;
+	unsigned char* limit = p + count;
+	while (p < limit)
+	{
+		auto word = gen();
+		auto n = std::min(static_cast<std::size_t>(limit - p), word_size);
+		::memcpy(p, &word, n);
+		p += n;
+	}
+}
+
 int main(int argc, const char * argv[])
 {
 
 	// Compares execution times of std::mt19937_64 and isaac64<>
 
-	auto mtseed = static_cast<std::mt19937_64::result_type>(std::chrono::system_clock::now().time_since_epoch().count());
+	std::random_device rdev;
+
+	std::mt19937_64::result_type mtseed = rdev();
+	mtseed <<= 32;
+	mtseed |= rdev();
 	std::mt19937_64 mtgen(mtseed);
 
 	// Alpha should (generally) either be 8 for crypto use, or 4 for non-crypto use.
@@ -33,26 +53,8 @@ int main(int argc, const char * argv[])
 	
 	// Alpha determines the size (in elements of result_type) of the
 	// internal state, and the size of the initial state for seeding.
-	
-	static constexpr std::size_t seed_blk_size = 1 << alpha;
 
-	using isaac_type = utils::isaac64<>;
-	isaac_type igen;
-
-	// a simple seeding strategy, using the engine to seed itself
-	
-	auto small_seed = static_cast<isaac_type::result_type>(std::chrono::system_clock::now().time_since_epoch().count());
-	igen.seed(small_seed);
-	
-	// use the time-seeded engine to create a full block of seed values
-	
-	std::vector<isaac_type::result_type> seedvec(seed_blk_size);
-	for (std::size_t i = 0; i < seed_blk_size; ++i)
-	{
-		seedvec[i] = igen();
-	}
-
-	igen.seed(seedvec.begin(), seedvec.end());
+	utils::isaac64<alpha> igen{rdev};
 	
 	std::uint64_t value = 0; // hack to prevent optimizer from removing inner timing loop
 	
@@ -61,6 +63,21 @@ int main(int argc, const char * argv[])
 	
 	std::cout << "generating 2^30 bytes, isaac64 = " << isaac_ms << " ms, mt19937_64 = " << mt_ms << " ms" << std::endl;
 
+
+	// Added as example for LeMoussel (see issue https://github.com/edgeofmagic/ISAAC-engine/issues/1):
+
+	auto start = std::chrono::system_clock::now();
+
+	unsigned char nonce96[12];
+
+	for (uint32_t j = 0; j < 1000000; j++) {
+		random_fill(igen, nonce96, sizeof(nonce96));
+	}
+
+	auto finish = std::chrono::system_clock::now();
+	auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
+
+	std::cout << "elapsed time for random_fill(1000000 iterations): " << elapsed_ms.count() << " milliseconds." << std::endl;
 	return 0;
 }
 
