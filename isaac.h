@@ -145,7 +145,7 @@ public:
 	{
         std::vector<result_type> seed_vec;
         seed_vec.reserve(state_size);
-        for (auto i = 0; i < state_size; ++i)
+        for (auto i = 0ul; i < state_size; ++i)
         {
 			result_type value;
 			value = dev();
